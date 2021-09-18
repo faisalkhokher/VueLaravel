@@ -7,6 +7,7 @@ Vue.use(VueRouter)
 import profile from './components/Profile.vue';
 import users from './components/Users.vue';
 import dashboard from './components/Dashboard.vue';
+import vblog from './components/blog.vue';
 
 //  Routes
 let routes = [
@@ -25,6 +26,11 @@ let routes = [
         path: '/dashboard',
         name: 'dashboard',
         component: dashboard , 
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: vblog
     }
   ]
 

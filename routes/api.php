@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::apiResource('/user' , 'API\UserController');
+Route::get('/users' , 'API\UserController@data');
+Route::post('/save-blog' , 'BlogController@postBlog');
+Route::get('/get-blog' , 'BlogController@getBlog');
