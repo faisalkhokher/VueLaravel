@@ -2421,6 +2421,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -40312,21 +40319,31 @@ var render = function() {
                 "tbody",
                 _vm._l(_vm.blogs, function(blog) {
                   return _c("tr", { key: blog.id }, [
-                    _c("td", [_vm._v(_vm._s(blog.name))]),
+                    _c("td", [_vm._v(_vm._s(blog.id))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(blog.text))]),
+                    _c("td", [_vm._v(_vm._s(_vm._f("uppercase")(blog.name)))]),
                     _vm._v(" "),
                     _c("td", [
-                      _vm._v(
-                        _vm._s(blog.is_true == 0 ? "Activate" : "Not Activate")
-                      )
+                      _vm._v(_vm._s(_vm._f("allupercase")(blog.text)))
                     ]),
                     _vm._v(" "),
-                    _vm._m(3, true),
+                    _c("td", [
+                      blog.is_true == 0
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v("Non Activate")
+                          ])
+                        : _c("span", { staticClass: "text-success" }, [
+                            _vm._v("\n                    Activate")
+                          ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(blog.created_at))]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n                  Bacon ipsum dolor sit amet salami venison chicken flank\n                  fatback doner.\n                "
+                        "\n                  " +
+                          _vm._s(blog.date) +
+                          "\n                "
                       )
                     ])
                   ])
@@ -40358,7 +40375,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -40598,7 +40615,7 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _vm._m(5)
+                    _vm._m(4)
                   ]
                 )
               ])
@@ -40654,22 +40671,14 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("User")]),
+        _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Date")]),
+        _c("th", [_vm._v("Text")]),
         _vm._v(" "),
         _c("th", [_vm._v("Status")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Reason")])
+        _c("th", [_vm._v("Date")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("span", { staticClass: "tag tag-success" }, [_vm._v("Approved")])
     ])
   },
   function() {
@@ -56098,11 +56107,14 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
-/* harmony import */ var vform_src_components_bootstrap4__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vform/src/components/bootstrap4 */ "./node_modules/vform/src/components/bootstrap4/index.js");
+/* harmony import */ var _filters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./filters */ "./resources/js/filters.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
+/* harmony import */ var vform_src_components_bootstrap4__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vform/src/components/bootstrap4 */ "./node_modules/vform/src/components/bootstrap4/index.js");
+
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -56110,12 +56122,12 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
-window.Form = vform__WEBPACK_IMPORTED_MODULE_2__["default"];
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform_src_components_bootstrap4__WEBPACK_IMPORTED_MODULE_3__["HasError"].name, vform_src_components_bootstrap4__WEBPACK_IMPORTED_MODULE_3__["HasError"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform_src_components_bootstrap4__WEBPACK_IMPORTED_MODULE_3__["AlertError"].name, vform_src_components_bootstrap4__WEBPACK_IMPORTED_MODULE_3__["AlertError"]);
-var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+window.Form = vform__WEBPACK_IMPORTED_MODULE_3__["default"];
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform_src_components_bootstrap4__WEBPACK_IMPORTED_MODULE_4__["HasError"].name, vform_src_components_bootstrap4__WEBPACK_IMPORTED_MODULE_4__["HasError"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform_src_components_bootstrap4__WEBPACK_IMPORTED_MODULE_4__["AlertError"].name, vform_src_components_bootstrap4__WEBPACK_IMPORTED_MODULE_4__["AlertError"]);
+var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app',
-  router: _router__WEBPACK_IMPORTED_MODULE_1__["default"]
+  router: _router__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 
 /***/ }),
@@ -56440,6 +56452,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_blog_vue_vue_type_template_id_7856a16d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/filters.js":
+/*!*********************************!*\
+  !*** ./resources/js/filters.js ***!
+  \*********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+ // Filters
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('uppercase', function (value) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('allupercase', function (value) {
+  return value.toUpperCase();
+});
 
 /***/ }),
 
