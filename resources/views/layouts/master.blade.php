@@ -168,6 +168,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <li class="nav-item">
+            <router-link to="/fetch/posts" class="nav-link" active-class="active" exact>
+              <i class="nav-icon fas fa-clipboard"></i>
+              <p>
+                post
+              </p>
+            </router-link>
+          </li>
+
+          <li class="nav-item">
             <router-link to="pages/gallery.html" class="nav-link" active-class="active" exact>
               <i class="nav-icon fas fa-power-off"></i>
               <p>
@@ -191,7 +200,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
         {{-- Main Content --}}
         <router-view></router-view>
-
+        <vue-progress-bar></vue-progress-bar>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>

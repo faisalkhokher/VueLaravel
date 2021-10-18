@@ -8,6 +8,7 @@ import profile from './components/Profile.vue';
 import users from './components/Users.vue';
 import dashboard from './components/Dashboard.vue';
 import vblog from './components/blog.vue';
+import posting from './components/post.vue';
 
 //  Routes
 let routes = [
@@ -31,6 +32,11 @@ let routes = [
       path: '/blog',
       name: 'blog',
       component: vblog
+    },
+    {
+      path: '/fetch/posts',
+      name: 'post',
+      component: posting
     }
   ]
 

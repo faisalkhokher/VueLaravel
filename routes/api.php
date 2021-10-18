@@ -21,4 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('/user' , 'API\UserController');
 Route::get('/users' , 'API\UserController@data');
 Route::post('/save-blog' , 'BlogController@postBlog');
+Route::post('/save-post' , 'BlogController@SavingPost');
 Route::get('/get-blog' , 'BlogController@getBlog');
+Route::get('/fetchCategories' , 'BlogController@fetchPosts');
+Route::get('/posts' , 'BlogController@fetchallPosts');
