@@ -25,6 +25,7 @@ Vue.use(VueProgressBar, {
 
   window.Toast = Toast;
 
+  Vue.component('pagination', require('laravel-vue-pagination'));
 
 import Form from 'vform'
 import {  HasError, AlertError } from 'vform/src/components/bootstrap4';

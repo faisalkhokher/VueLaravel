@@ -48,8 +48,8 @@ class BlogController extends Controller
     public function fetchallPosts()
     {
         $data = Post::with('category','users')
-        ->orderBy('created_at' , "desc")
-        ->get();
+        ->latest()
+        ->paginate(10);
         return response()->json($data);
     }   
     

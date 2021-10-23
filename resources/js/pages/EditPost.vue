@@ -69,7 +69,6 @@ data: () => ({
 
     methods: {
       async  updatePost() {
-        console.log("Update event");
         await this.form.put('/api/post/UpdatePost/'+this.$route.params.id);
         this.$router.push({name : "post"})
         }

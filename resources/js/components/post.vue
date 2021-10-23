@@ -26,13 +26,15 @@
             <div class="modal-dialog">
               <div class="modal-content ">
                 <div class="modal-header">
-                  <h4 class="modal-title">Save Post</h4>
+                  <h4 class="modal-title">
+                    {{ editMode ? "Update Post" : "Save Post" }}
+                  </h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">×</span>
                             </button>
                 </div>
                 <!-- FORM -->
-                <form @submit.prevent="savePost">
+                <form @submit.prevent="editMode ? update() :savePost()">
                   <div class="modal-body">
                     <div class="form-group">
                       <label for="">Name</label>
@@ -42,7 +44,7 @@
                     <div class="form-group">
                       <label for="">Number</label>
                       <input type="text" name="number" value="" v-model="form.number" class="form-control" placeholder="" aria-describedby="helpId" />
-                      <div style="color:red" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                      <div style="color:red" v-if="form.errors.has('number')" v-html="form.errors.get('name')" />
                     </div>
                     <div class="">
                       <div class="form-group">
@@ -65,12 +67,22 @@
                               <option
                                 v-for="user in users"
                                 :key="user.id"
-                                  v-bind:value="user.id">
+                                v-bind:value="user.id">
                                 {{ user.name }}
                               </option>                   
                             </select>
                         <div style="color:red" v-if="form.errors.has('user_id')" v-html="form.errors.get('user_id')" />
                       </div>
+
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="confirmed" v-model="form.confirmed" value="1">
+                          <label class="form-check-label">Active</label>
+                        </div>
+                        
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="confirmed" v-model="form.confirmed" value="0" style="accent-color:#ff4d6e">
+                          <label class="form-check-label">Deavtive</label>
+                        </div>
                     </div>
                   </div>
                   <div class="modal-footer justify-content-between">
@@ -108,7 +120,7 @@
             <!-- /.modal-dialog -->
           </div>
           <!-- /.card-header -->
-          <div class="card-body table-responsive p-0" style="height: 300px">
+          <div class="card-body table-responsive p-0" >
             <table class="table table-head-fixed text-nowrap">
               <thead>
                 <tr>
@@ -117,16 +129,25 @@
                   <th>Number</th>
                   <th>User</th>
                   <th>Category</th>
+                  <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="post in allposts" :key="post.id">
+                <tr v-for="(post , index) in allposts.data" :key="post.id">
                   <td>{{ post.id }}</td>
                   <td>{{ post.name }}</td>
                   <td>{{ post.number }}</td>
                   <td>{{ post.users.name }}</td>
                   <td>{{ post.category.name }}</td>
+                  <td>
+                    <div v-if="post.confirmed == 0">
+                      <span class="badge badge-danger">Deactivated</span>
+                    </div>
+                    <div v-if="post.confirmed == 1">
+                      <span class="badge badge-success">Active</span>
+                    </div>
+                  </td>
                   <td>
                     <button type="button" class="btn btn-success btn-sm" 
                     @click="editModal(post)"
@@ -140,6 +161,9 @@
               </tbody>
             </table>
           </div>
+          <div class="card-footer">
+            <pagination :data="allposts" @pagination-change-page="getResults"></pagination>
+          </div>
           <!-- /.card-body -->
         </div>
         <!-- /.card -->
@@ -151,17 +175,26 @@
 <script>
   export default {
     data: () => ({
+      editMode: false,
       category: [],
       users: [],
-      allposts: [],
+      allposts: {},
       form: new Form({
         name: "",
+        id: "",
         number: "",
         category_id: "",
         user_id: "",
+        confirmed: "",
       }),
     }),
     methods: {
+      getResults(page = 1) {
+			axios.get('/api/posts?page=' + page)
+				.then(response => {
+					this.allposts = response.data;
+				});
+		   },
       resetFields() {
            this.form.name = "";
            this.form.number = "";
@@ -169,6 +202,8 @@
            this.form.user_id = "";
       },
       editModal(post) {    
+        this.editMode = true;
+        this.form.clear();
         this.form.reset();
         this.form.fill(post)
         $("#modal-secondary").modal("show");
@@ -180,6 +215,7 @@
       },
       //! Saving a post API
       savePost() {
+        this.editMode = false;
         this.form.post("/api/save-post", this.data)
         .then((rs) => {
           // ! Progress bar start
@@ -197,6 +233,21 @@
           })
         });
       },
+
+      // ! UpdatePost
+      update() {
+        console.log(this.form.id);
+        this.editMode = true;
+       this.form.put('/api/post/UpdatePost/'+this.form.id)
+        .then((result) => {
+          this.$Progress.start()
+          this.$emit('updatePostEvnt')
+          this.$Progress.finish()
+          $("#modal-secondary").modal("hide");
+        }).catch((err) => {
+          
+        });
+      },
   
       //! Function to fecth all posts
       async fetchposts() {
@@ -204,7 +255,7 @@
           method: "get",
           url: "/api/posts",
         }).then((rs) => {
-          this.allposts = rs.data;
+          this.allposts = rs;
         });
       },
 
@@ -260,11 +311,22 @@
       this.$on('created', () => {
         // then POSTS MED CALL
         this.fetchposts();
+        	this.getResults();
       })
       // Event call that data is dlted
       this.$on('deletePost', () => {
         this.fetchposts();
+        	this.getResults();
+      })
+
+      this.$on('updatePostEvnt' , ()=> {
+        this.fetchposts();
+        	this.getResults();
       })
     },
+    mounted() {
+		// Fetch initial results
+		this.getResults();
+	},
   };
 </script>
