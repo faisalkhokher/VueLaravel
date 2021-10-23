@@ -29,8 +29,13 @@ class BlogController extends Controller
     }
 
     public function SavingPost(Request $request)
-    {
-        // dd($request->all());
+    { 
+        $this->validate($request, [
+        'name' => 'required',
+        'number' => 'required',
+        'user_id' => 'required',
+        'category_id' => 'required',
+        ]);
         $input = $request->all();
         $data = Post::create($input);
         return response()->json($data, 200);
@@ -42,7 +47,38 @@ class BlogController extends Controller
     }
     public function fetchallPosts()
     {
-        $data = Post::with('category','users')->get();
+        $data = Post::with('category','users')
+        ->orderBy('created_at' , "desc")
+        ->get();
         return response()->json($data);
+    }   
+    
+    public function DeletePost($id)
+    {
+        Post::where('id',$id)->first()->delete();
+        return "DELETED";
+    }
+
+    public function UpdatePost(Request $request , $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'number' => 'required',
+            'user_id' => 'required',
+            'category_id' => 'required',
+            ]);
+        $post = Post::find($id);
+        $post->name = $request->name;
+        $post->number = $request->number;
+        $post->category_id = $request->category_id;
+        $post->user_id = $request->user_id;
+        $post->save();
+        return "Saved";
+    }
+    public function get_single_post_date($id)
+    {
+        
+       $post = Post::find($id);
+       return $post;
     }
 }

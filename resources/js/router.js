@@ -9,6 +9,7 @@ import users from './components/Users.vue';
 import dashboard from './components/Dashboard.vue';
 import vblog from './components/blog.vue';
 import posting from './components/post.vue';
+import editPost from './pages/EditPost.vue';
 
 //  Routes
 let routes = [
@@ -37,7 +38,12 @@ let routes = [
       path: '/fetch/posts',
       name: 'post',
       component: posting
-    }
+    },
+    {
+      path: '/edit/posts/:id',
+      name: 'editPost',
+      component: editPost
+    },
   ]
 
    export default new VueRouter({

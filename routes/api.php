@@ -23,5 +23,9 @@ Route::get('/users' , 'API\UserController@data');
 Route::post('/save-blog' , 'BlogController@postBlog');
 Route::post('/save-post' , 'BlogController@SavingPost');
 Route::get('/get-blog' , 'BlogController@getBlog');
+// !POSTS
 Route::get('/fetchCategories' , 'BlogController@fetchPosts');
 Route::get('/posts' , 'BlogController@fetchallPosts');
+Route::delete('/dlt-post/{id}' , 'BlogController@DeletePost');
+Route::put('/post/UpdatePost/{id}' , 'BlogController@UpdatePost');
+Route::get('/find-single/post/{id}' , 'BlogController@get_single_post_date');
