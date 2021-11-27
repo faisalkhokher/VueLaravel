@@ -171,7 +171,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <router-link to="/fetch/posts" class="nav-link" active-class="active" exact>
               <i class="nav-icon fas fa-clipboard"></i>
               <p>
-                post
+                Post
+              </p>
+            </router-link>
+          </li>
+
+          <li class="nav-item">
+            <router-link to="/categories" class="nav-link" active-class="active" exact>
+              <i class="nav-icon fas fa-clipboard"></i>
+              <p>
+                Category
               </p>
             </router-link>
           </li>

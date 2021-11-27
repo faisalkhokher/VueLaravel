@@ -81,4 +81,10 @@ class BlogController extends Controller
        $post = Post::find($id);
        return $post;
     }
+    public function storeCategory(Request $request)
+    {
+       $input = $request->all();
+       Category::create($input);
+       return true;
+    }
 }

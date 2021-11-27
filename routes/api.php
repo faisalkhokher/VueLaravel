@@ -29,3 +29,5 @@ Route::get('/posts' , 'BlogController@fetchallPosts');
 Route::delete('/dlt-post/{id}' , 'BlogController@DeletePost');
 Route::put('/post/UpdatePost/{id}' , 'BlogController@UpdatePost');
 Route::get('/find-single/post/{id}' , 'BlogController@get_single_post_date');
+Route::post('/store/category' , 'BlogController@storeCategory');
+Route::post('/messages' , 'ChatController@message');

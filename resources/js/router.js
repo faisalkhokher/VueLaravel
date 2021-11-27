@@ -10,7 +10,9 @@ import dashboard from './components/Dashboard.vue';
 import vblog from './components/blog.vue';
 import posting from './components/post.vue';
 import editPost from './pages/EditPost.vue';
-
+import Category from './components/category.vue';
+import AddCategory from './pages/Addcategory.vue';
+import chat from './pages/chat.vue';
 //  Routes
 let routes = [
   
@@ -43,6 +45,21 @@ let routes = [
       path: '/edit/posts/:id',
       name: 'editPost',
       component: editPost
+    },
+    {
+      path: '/categories',
+      name: 'Category',
+      component: Category
+    },
+    {
+      path: '/category/addcategory',
+      name: 'AddCategory',
+      component: AddCategory
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: chat
     },
   ]
 

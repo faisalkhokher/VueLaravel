@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group">
                       <label for="">Number</label>
-                      <input type="text" name="number" value="" v-model="form.number" class="form-control" placeholder="" aria-describedby="helpId" />
+                      <input type="text" name="number"  v-model="form.number" class="form-control" placeholder="" aria-describedby="helpId" />
                       <div style="color:red" v-if="form.errors.has('number')" v-html="form.errors.get('name')" />
                     </div>
                     <div class="">
@@ -134,7 +134,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(post , index) in allposts.data" :key="post.id">
+                <tr v-for="(post) in allposts.data" :key="post.id">
                   <td>{{ post.id }}</td>
                   <td>{{ post.name }}</td>
                   <td>{{ post.number }}</td>
